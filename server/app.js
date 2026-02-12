@@ -22,23 +22,28 @@ const swaggerSpec = swaggerJSDoc({
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API Docs",
+      title: "Foodsol API Docs",
       version: "1.0.0",
     },
-    servers: [{ url: "http://localhost:5000" }],
+    // 1. Servers must be an array of OBJECTS, not an array of strings in one object
+    servers: [
+      { url: "http://localhost:5000", description: "Development Server"},
+      { url: "https://foodsol.onrender.com", description: "Production Server"}
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
-          type: "http",
+          // 2. Type must be exactly "http". The "https" is handled by the server URL above.
+          type: "http", 
           scheme: "bearer",
           bearerFormat: "JWT",
         },
       },
     },
   },
-
   apis: ["./docs/*.swagger.js"],
 });
+
 
 app.use(express.json({limit : "500mb"}))
 app.use(express.urlencoded({limit : "500mb", extended : true}))
