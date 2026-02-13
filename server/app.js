@@ -11,6 +11,7 @@ const connectCloudinary = require("./init/cloudinary")
 const userRouter = require("./routes/user")
 const swaggerJSDoc = require("swagger-jsdoc")
 const swaggerUI = require("swagger-ui-express")
+const restaurantRouter = require("./routes/restaurant")
 
 connectDB()
 connectRedis()
@@ -56,6 +57,7 @@ app.get("/", (req, res) => res.send("<p>API WORKING</p>"))
 
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/user", userRouter)
+app.use("/api/v1/restaurant", restaurantRouter)
 
 app.use(notFound)
 app.use(errorMiddleware)

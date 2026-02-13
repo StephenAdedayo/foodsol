@@ -28,9 +28,15 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
 
+    role: { 
+    type: String, 
+    enum: ['customer', 'restaurantOwner', 'driver', 'superAdmin'], 
+    default: 'customer' 
+    },
+
     address: {
-      type: Object,
-      default: {},
+      type: [String],
+      default : [],
     },
 
     verifyOtp: {
