@@ -1,4 +1,5 @@
-const { check } = require("express-validator");
+const { check, param } = require("express-validator");
+const  mongoose  = require("mongoose");
 
 const validateRestaurantValidation = [
 
@@ -8,4 +9,23 @@ const validateRestaurantValidation = [
 
 ]
 
-module.exports = {validateRestaurantValidation}
+const idValidator = [
+
+    check("restaurantId").custom(async (id) => {
+        if(id && !mongoose.Types.ObjectId.isValid(id)){
+            throw `Invalid restaurant Id`
+        }
+    })
+
+]
+
+const singleRestaurantIdValidator = [
+    param("id").custom(async (id) => {
+        if(id && !mongoose.Types.ObjectId.isValid(id)){
+            throw `Invalid restaurant Id`
+        }
+    })
+]
+
+
+module.exports = {validateRestaurantValidation, idValidator, singleRestaurantIdValidator}

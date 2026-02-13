@@ -56,6 +56,7 @@ const approveRestaurant = async (req, res, next) => {
 
         const restaurant = await Restaurant.findOne({_id : restaurantId})
         const ownerId = restaurant.ownerId
+
         if(!restaurant){
             res.code = 401
             throw new Error("Restaurant does not exist")
