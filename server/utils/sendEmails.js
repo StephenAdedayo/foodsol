@@ -5,12 +5,13 @@ const sendEmail = async ({emailTo, subject, html}) => {
 
     const transporter = nodemailer.createTransport({
         host : "smtp.gmail.com",
-        port : SMTP_PORT,
-        secure : false,
+        port : 465,
+        secure : true,
         auth : {
             user : "alustephenadedayo@gmail.com",
             pass : "jfzonjxlwopinknj"
-        }
+        },
+        family: 4
     })
 
     const message = {

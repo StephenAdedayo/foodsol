@@ -18,6 +18,30 @@
  *         description: User data fetched successfully
  *         content:
  *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: User data fetched successfully
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                       example: 65d123abc456def789000111
+ *                     name:
+ *                       type: string
+ *                       example: John Doe
+ *                     email:
+ *                       type: string
+ *                       example: johndoe@gmail.com
+ *                     phoneNumber:
+ *                       type: string
+ *                       example: 08012345678
  *       401:
  *         description: Unauthorized
  */
@@ -47,12 +71,6 @@
  *               name:
  *                 type: string
  *                 example: John doe
- *               address:
- *                 type: object
- *                 example: {
- *                    "city" : "ibadan",
- *                    "street" : "johndoe street"
- *                  }
  *               image:
  *                 type: string
  *                 format: binary
@@ -65,3 +83,39 @@
  *         description: Unauthorized
  */
 
+
+/**
+ * @swagger
+ * /api/v1/user/add-address:
+ *   post:
+ *     summary: Add delivery address
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               street:
+ *                 type: string
+ *               city:
+ *                 type: string
+ *               lat:
+ *                 type: number
+ *               lng:
+ *                 type: number
+ *               label:
+ *                 type: string
+ *             example:
+ *               street: "123 Herbert Macaulay Way"
+ *               city: "Yaba"
+ *               lat: 6.5244
+ *               lng: 3.3792
+ *               label: "Work"
+ *     responses:
+ *       200:
+ *         description: Address added successfully
+ */

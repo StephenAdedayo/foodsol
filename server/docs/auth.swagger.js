@@ -122,6 +122,29 @@
  *         description: Otp sent successfully
  */
 
+/**
+ * @swagger
+ * /api/v1/auth/resend-otp:
+ *   post:
+ *     summary: Resend reset password otp
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: johndoe@gmail.com
+ *     responses:
+ *       201:
+ *         description: Otp sent successfully
+ */
+
 
 /**
  * @swagger
@@ -153,5 +176,4 @@
  *       200:
  *         description: Password reset successful
  */
-
 

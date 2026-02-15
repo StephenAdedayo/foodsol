@@ -5,4 +5,4 @@ const { PORT } = require("./config/keys");
 
 const server = http.createServer(app)
 
-server.listen(PORT, () => console.log("Server Started Successfully on Port", PORT))
+server.listen(PORT, "0.0.0.0", () => console.log("Server Started Successfully on Port", PORT))

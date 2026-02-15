@@ -152,6 +152,53 @@ const verifyAccount = async (req, res, next) => {
 
 }
 
+const resendResetPasswordOtp = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            res.status(400);
+            throw new Error("Email is required");
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            res.status(404);
+            throw new Error("User not found");
+        }
+
+        // 1. Generate new OTP (e.g., a 6-digit number)
+        const otp = generateCode(4)
+
+        // 2. Set expiration (e.g., 15 minutes from now)
+        user.resetPasswordOtp = otp;
+        user.resetPasswordOtpExpires = Date.now() + 15 * 60 * 1000;
+
+        await user.save();
+
+        // 3. Send the OTP via email
+        // Note: Use your existing mailer configuration here
+        await sendEmail({
+            emailTo: user.email,
+            subject: "Your Password Reset OTP",
+                html : `
+                  <div>
+                  <p>Use the otp below to reset your password</p>
+                  <p>Your otp is ${otp}. Expires in 5 minutes </p>
+                  </div>
+                `        });
+
+        res.status(200).json({
+            code: 200,
+            success: true,
+            message : "Reset opt sent successfully"        });
+
+    } catch (error) {
+        next(error);
+    }
+};
+
 const resetPasswordOtp = async (req, res, next ) => {
 
     try {
@@ -228,6 +275,8 @@ const resetPassword = async (req, res, next) => {
 }
 
 
+
+
 const googleAuth = async (req, res, next) => {
   try {
     const { idToken } = req.body;
@@ -262,4 +311,4 @@ const googleAuth = async (req, res, next) => {
   }
 };
 
-module.exports = {registerUser, loginUser, verifyAccount, resetPasswordOtp, resetPassword, googleAuth}
+module.exports = {registerUser, loginUser, verifyAccount, resetPasswordOtp, resetPassword, resendResetPasswordOtp, googleAuth}
