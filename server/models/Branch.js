@@ -30,6 +30,11 @@ const branchSchema = new mongoose.Schema({
         required: true
     },
 
+    image: {
+    type: String,
+    default: "" 
+  },
+
     operatingHours: [
         {
             day: { type: String, enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] },

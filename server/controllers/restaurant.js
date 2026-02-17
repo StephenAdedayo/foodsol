@@ -127,7 +127,7 @@ const deleteRestaurant = async (req, res, next) => {
 
        if(!restaurant){
             res.code = 400
-            throw new Error("Could not get restaurants")
+            throw new Error("Restaurant not found")
         }
 
         res.status(200).json({code : 200, success: true, message : "Restaurant deleted successfully"})
@@ -174,7 +174,7 @@ const getMyRestaurantProfile = async (req, res, next) => {
 
 const updateRestaurantProfile = async (req, res, next) => {
     try {
-                 const ownerId = req.user._id
+        const ownerId = req.user._id
                  
         const { restaurantName, description, category } = req.body;
 
